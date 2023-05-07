@@ -18,7 +18,7 @@
 
 class Database {
     
-    static $dsn = 'sqlsrv:server = tcp:lmcm.database.windows.net,1433; Database = lmcm"';
+    static $dsn = 'sqlsrv:server = tcp:lmcm.database.windows.net,1433; Database = lmcm';
     static $username = 'lmcmadmin';
     static $password = 'azurepw.A';
 
