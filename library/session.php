@@ -55,11 +55,11 @@ class UserSession {
 
     // User session functions
     public function setSessionUser(User $user) {
-        $_SESSION['session_user'] = __serialize($user);
+        $_SESSION['session_user'] = serialize($user);
     }
 
     public function getSessionUser() {
-        return __unserialize($_SESSION['session_user']);
+        return unserialize($_SESSION['session_user']);
     }
 
     public function hasSessionUser () {
