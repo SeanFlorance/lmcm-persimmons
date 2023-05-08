@@ -56,7 +56,6 @@ class UserModel
                 FROM
                     users
                 LEFT JOIN reports_access ON users.grower_id = reports_access.grower_id
-                WHERE report_id = :report_id
                 ORDER BY
                     user_status
                 DESC
