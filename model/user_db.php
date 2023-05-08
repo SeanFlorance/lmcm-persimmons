@@ -55,9 +55,11 @@ class UserModel
                 END access
                 FROM users
                 LEFT JOIN reports_access ON users.grower_id = reports_access.grower_id
+		        WHERE report_id IS NULL OR report_id = :report_id_2
                 ORDER BY user_status DESC, users.grower_id';
         $statement = $conn->prepare($query);
         $statement->bindValue(':report_id', $report_id);
+        $statement->bindValue(':report_id_2', $report_id);
         $statement->execute();
         $users = $statement->fetchall();
         $statement->closeCursor();
