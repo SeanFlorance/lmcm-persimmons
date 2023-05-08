@@ -53,14 +53,10 @@ class UserModel
         $query = 'SELECT users.grower_id, first_name, surname, business_name, email, mobile, user_type, user_status,
             CASE WHEN (report_id IS NOT NULL AND report_id = :report_id) THEN \'has_access\' ELSE \'no_access\'
                 END access
-                FROM
-                    users
+                FROM users
                 LEFT JOIN reports_access ON users.grower_id = reports_access.grower_id
-                ORDER BY
-                    user_status
-                DESC
-                    ,
-                    users.grower_id';
+				WHERE report_id IS NULL OR report_id = 'r-00'
+                ORDER BY user_status DESC, users.grower_id';
         $statement = $conn->prepare($query);
         $statement->bindValue(':report_id', $report_id);
         $statement->execute();
