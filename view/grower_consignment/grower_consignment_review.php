@@ -51,7 +51,7 @@
             <button type="button" onclick="window.location.href='grower_consignment_controller.php';">
                 Edit Consignment
             </button> <br>
-            <button type="button" onclick="window.location.href='grower_consignment_controller.php?action=consignment_submitted';">
+            <button type="button" onclick="window.location.href='grower_consignment_controller.php?action=submit_consginment';">
                 Submit
             </button>
         </div>
