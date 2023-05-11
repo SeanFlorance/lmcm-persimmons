@@ -361,6 +361,9 @@ switch ($action) {
         $report_id = filter_input(INPUT_POST, 'report_id');
 
         $report_check = ReportModel::get_report_by_number($report_id);
+        
+        // Location for temp data file
+        $report_data = './uploads/temp_uploaded_pdf.pdf';
 
         //check if report already exists, redirect where required
         if ($report_check == false) {
@@ -419,6 +422,11 @@ switch ($action) {
             )) {
                 throw new RuntimeException('Invalid file format.');
             }
+        
+            // Create temp file for file stream for sending to azure db
+            if (!move_uploaded_file($_FILES['pdf_file']['tmp_name'], $report_data))) {
+                 throw new RuntimeException('Failed to move uploaded file.');
+            }
         } catch (RuntimeException $e) {
             // get  users to display
             $users = UserModel::get_user_data();
@@ -427,12 +435,11 @@ switch ($action) {
             include('../view/admin_manager/upload_report_select.php');
             die();
         }
-
+        
         // pull remaining report data from $_FILES
         // Add file data to php variables
         $report_filename = $_FILES['pdf_file']['name'];
         $report_file_type = $ext;
-        $report_data = $_FILES['pdf_file']['tmp_name'];
         $upload_date = filter_input(INPUT_POST, 'upload_date');
         $report_size = $_FILES['pdf_file']['size'];
 
@@ -442,13 +449,31 @@ switch ($action) {
         } catch (Exception $e) {
             // get users to display
             $users = UserModel::get_user_data();
+            
+            // remove temp file if created
+            if(file_exists($report_data)){
+                $status  = unlink($report_data) ? ' The file \'temp_uploaded_pdf\' has been deleted' : ' Error deleting \'temp_uploaded_pdf\'';
+            $e = $e . $status;
+            }
+            else
+            {
+                $e = $e . 'Also, the file \'temp_uploaded_pdf\' doesnot exist';
+            }
 
             // produce error message
             $upload_error = "The following error occured when attempting to upload report: " . $e;
             include('../view/admin_manager/upload_report_select.php');
             die();
         }
-
+        
+        // remove temp file if created
+        if(file_exists($report_data)){
+            $status  = unlink($report_data) ? ' The file \'temp_uploaded_pdf\' has been deleted' : ' Error deleting \'temp_uploaded_pdf\'';
+        $e = $e . $status;
+        }
+        else {
+            $e = $e . 'Also, the file \'temp_uploaded_pdf\' doesnot exist';
+        }
         // update access list in system
 
         // get list of users to change access for and their new access state
