@@ -196,6 +196,7 @@ class ReportModel
     public static function add_report($report_number, $report_filename, $report_file_type, $report_data, $upload_date, $report_size)
     {
         $conn = Database::connection();
+        $conn->setAttribute(PDO::SQLSRV_ATTR_ENCODING, PDO::SQLSRV_ENCODING_UTF8);
         $query = 'INSERT INTO reports_data
                          (report_id
                         , report_filename
