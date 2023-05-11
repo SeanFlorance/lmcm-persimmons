@@ -214,8 +214,8 @@ class ReportModel
         $statement->bindValue(':report_id', (int)$report_number);
         $statement->bindValue(':report_filename', $report_filename);
         $statement->bindValue(':report_file_type', $report_file_type);
-        $statement->bindValue(':report_data', $report_data);
-        $statement->bindValue(':upload_date', $upload_date, PDO::PARAM_LOB);
+        $statement->bindValue(':report_data', $report_data, PDO::PARAM_LOB);
+        $statement->bindValue(':upload_date', $upload_date);
         $statement->bindValue(':report_size', $report_size);
         $statement->execute();
         $statement->closeCursor();
