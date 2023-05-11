@@ -216,7 +216,7 @@ class ReportModel
         $statement->bindValue(':report_file_type', $report_file_type);
         // Open temp file
         $fp = fopen($_FILES['pdf_file']['temp_name'], 'rb');
-        $dbStatement->bindParam(':report_data', $fp, PDO::PARAM_LOB, 0, PDO::SQLSRV_ENCODING_BINARY);
+        $statement->bindParam(':report_data', $fp, PDO::PARAM_LOB, 0, PDO::SQLSRV_ENCODING_BINARY);
         $statement->bindValue(':upload_date', $upload_date);
         $statement->bindValue(':report_size', $report_size);
         $statement->execute();
