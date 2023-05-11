@@ -432,7 +432,9 @@ switch ($action) {
         // Add file data to php variables
         $report_filename = $_FILES['pdf_file']['name'];
         $report_file_type = $ext;
-        $report_data = file_get_contents($_FILES['pdf_file']['tmp_name']);
+        $report_data_wrong_encoding = file_get_contents($_FILES['pdf_file']['tmp_name']);
+        // Convert encoding to UCS-2 for azure varbinary(max) type
+        $report_data = mb_convert_encoding($report_data_wrong_encoding, "UCS-2", mb_detect_encoding($report_data_wrong_encoding, "UTF-8, ISO-8859-1, ISO-8859-15", true));
         $upload_date = filter_input(INPUT_POST, 'upload_date');
         $report_size = $_FILES['pdf_file']['size'];
 
