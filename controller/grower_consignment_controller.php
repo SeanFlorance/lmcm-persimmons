@@ -23,11 +23,10 @@ if ($action === NULL) {
 }
 
 // checking if session exists and redirect accordingly
-if($user_session->hasSessionUser()) {
+if ($user_session->hasSessionUser()) {
     $user = $user_session->getSessionUser();
-}
-else {
-    if($action != 'logout') {
+} else {
+    if ($action != 'logout') {
         $action = 'no_session';
     }
 }
@@ -46,7 +45,7 @@ switch ($action) {
 
         // checks if a grower fail message for the password reset is set, unsets if it does
         // Used as a way of removing the fail message after navigating away from password reset page upon reset failure
-        if(isset($_SESSION['grower_fail_msg'])) {
+        if (isset($_SESSION['grower_fail_msg'])) {
             unset($_SESSION['grower_fail_msg']);
         }
 
@@ -66,9 +65,9 @@ switch ($action) {
         $grower_id = $user->getUserID();
         $grower_session_pw = UserModel::get_user_password_hash($grower_id);
 
-        if(password_verify($current_pw, $grower_session_pw[0])) {
+        if (password_verify($current_pw, $grower_session_pw[0])) {
             // clear the grower_fail_msg
-            if(isset($_SESSION['grower_fail_msg'])) {
+            if (isset($_SESSION['grower_fail_msg'])) {
                 unset($_SESSION['grower_fail_msg']);
             }
 
@@ -79,8 +78,7 @@ switch ($action) {
             // set new password in database
             try {
                 UserModel::set_user_password($user, $new_pw_hash);
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $_SESSION['grower_fail_msg'] = "<h3>" . "There was a database error and password could not be changed" . "</h3>";
                 header('Location: ?action=change_password_form');
             }
@@ -89,7 +87,6 @@ switch ($action) {
             $_SESSION['message_type'] = 'grower_pw_change';
             $_SESSION['add_grower_submission_msg'] = "<h3>" . "Password changed for grower " . $user->getFirstName() . " with user id " . $user->getUserID() . "</h3>";
             header('Location: ?action=grower_submitted');
-
         } else {
             $_SESSION['grower_fail_msg'] = "<h3>" . "Grower authentication failed for password reset" . "</h3>";
             header('Location: ?action=change_password_form');
@@ -113,15 +110,15 @@ switch ($action) {
         $grower_comment = filter_input(INPUT_POST, 'comment_text');
 
         // if no comment was chosen grower comment set to null
-        if($radio_choice == "no") {
-           $grower_comment = NULL;
+        if ($radio_choice == "no") {
+            $grower_comment = NULL;
         }
 
         // Submit the consignment data
         $consignment_id = ConsignmentModel::submit_consignment_data($grower_number, $consignment_date, $market_location, $grower_comment);
 
         // Gather entry data from consignment form
-        for($i = 1; $i <= $entry_number; $i++) {
+        for ($i = 1; $i <= $entry_number; $i++) {
             $fruit_variety = filter_input(INPUT_POST, 'fruit_variety' . $i);
             $fruit_size = filter_input(INPUT_POST, 'fruit_size' . $i);
             $package_type = filter_input(INPUT_POST, 'package_type' . $i);
@@ -129,14 +126,14 @@ switch ($action) {
             $price = filter_input(INPUT_POST, 'price' . $i);
 
             // Submit the entry data
-            ConsignmentModel::submit_entry_data($consignment_id
-                                            , $fruit_variety
-                                            , $fruit_size
-                                            , $package_type
-                                            , $quantity
-                                            , $price
+            ConsignmentModel::submit_entry_data(
+                $consignment_id,
+                $fruit_variety,
+                $fruit_size,
+                $package_type,
+                $quantity,
+                $price
             );
-
         }
 
         $_SESSION['consignment_id'] = $consignment_id;
@@ -144,6 +141,39 @@ switch ($action) {
         break;
 
     case 'consignment_review':
+
+        // Gather consignment data from consignment form
+        $grower_number = $user->getUserID();
+        $entry_number = filter_input(INPUT_POST, 'entry_number');
+        $consignment_date = filter_input(INPUT_POST, 'consignment_date');
+        $market_location = filter_input(INPUT_POST, 'market_location');
+        $radio_choice = filter_input(INPUT_POST, 'comment_choice');
+        $grower_comment = filter_input(INPUT_POST, 'comment_text');
+
+        $consignment = array();
+        array_push($consignment, $grower_number, $entry_number, $consignment_date, $market_location, $radio_choice, $grower_comment);
+
+
+        // if no comment was chosen grower comment set to null
+        if ($radio_choice == "no") {
+            $grower_comment = NULL;
+        }
+
+
+        $entries = array();
+
+        // Gather entry data from consignment form
+        for ($i = 1; $i <= $entry_number; $i++) {
+            $entry = array();
+            $fruit_variety = filter_input(INPUT_POST, 'fruit_variety' . $i);
+            $fruit_size = filter_input(INPUT_POST, 'fruit_size' . $i);
+            $package_type = filter_input(INPUT_POST, 'package_type' . $i);
+            $quantity = filter_input(INPUT_POST, 'quantity' . $i);
+            $price = filter_input(INPUT_POST, 'price' . $i);
+            array_push($entry, $fruit_variety, $fruit_size, $package_type, $quantity, $price);
+            array_push($entries, $entry);
+        }
+
         include('../view/grower_consignment/grower_consignment_review.php');
         break;
 
@@ -171,6 +201,4 @@ switch ($action) {
         $user_session->closeSession();
         header('Location: grower_login_controller.php');
         break;
-
 }
-?>
