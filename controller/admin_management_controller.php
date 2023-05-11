@@ -428,15 +428,14 @@ switch ($action) {
             die();
         }
 
-        // pull remaining report data from $_FILES
-        // Add file data to php variables
-        $report_filename = $_FILES['pdf_file']['name'];
-        $report_file_type = $ext;
-        $upload_date = filter_input(INPUT_POST, 'upload_date');
-        $report_size = $_FILES['pdf_file']['size'];
-
         // try adding report to the system via data model
         try {
+            // pull remaining report data from $_FILES
+            // Add file data to php variables
+            $report_filename = $_FILES['pdf_file']['name'];
+            $report_file_type = $ext;
+            $upload_date = filter_input(INPUT_POST, 'upload_date');
+            $report_size = $_FILES['pdf_file']['size'];
             ReportModel::add_report($report_id, $report_filename, $report_file_type, $upload_date, $report_size);
         } catch (Exception $e) {
             // get users to display
