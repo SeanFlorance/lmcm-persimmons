@@ -432,7 +432,7 @@ switch ($action) {
         // Add file data to php variables
         $report_filename = $_FILES['pdf_file']['name'];
         $report_file_type = $ext;
-        $report_data = mysql_real_escape_string(file_get_contents($_FILES['pdf_file']['tmp_name']));
+        $report_data = file_get_contents($_FILES['pdf_file']['tmp_name']);
         $upload_date = filter_input(INPUT_POST, 'upload_date');
         $report_size = $_FILES['pdf_file']['size'];
 
