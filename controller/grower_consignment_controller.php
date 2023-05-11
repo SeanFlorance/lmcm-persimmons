@@ -151,7 +151,12 @@ switch ($action) {
         $grower_comment = filter_input(INPUT_POST, 'comment_text');
 
         $consignment = array();
-        array_push($consignment, $grower_number, $entry_number, $consignment_date, $market_location, $radio_choice, $grower_comment);
+        array_push($consignment, $grower_number);
+        array_push($consignment, $entry_number);
+        array_push($consignment, $consignment_date);
+        array_push($consignment, $market_location);
+        array_push($consignment, $radio_choice);
+        array_push($consignment, $grower_comment);
 
 
         // if no comment was chosen grower comment set to null
@@ -170,7 +175,11 @@ switch ($action) {
             $package_type = filter_input(INPUT_POST, 'package_type' . $i);
             $quantity = filter_input(INPUT_POST, 'quantity' . $i);
             $price = filter_input(INPUT_POST, 'price' . $i);
-            array_push($entry, $fruit_variety, $fruit_size, $package_type, $quantity, $price);
+            array_push($entry, $fruit_variety);
+            array_push($entry, $fruit_size);
+            array_push($entry, $package_type);
+            array_push($entry, $quantity);
+            array_push($entry, $price);
             array_push($entries, $entry);
         }
 
