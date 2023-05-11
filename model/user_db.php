@@ -46,6 +46,43 @@ class UserModel
 
         return $users_output;
     }
+    public static function get_user_data_by_status()
+    {
+        $conn = Database::connection();
+        $query = 'SELECT *
+                  FROM users
+                  ORDER BY user_status DESC, grower_id';
+        $statement = $conn->prepare($query);
+        $statement->execute();
+        $users = $statement->fetchall();
+        $statement->closeCursor();
+
+        $users_output = array();
+
+        foreach ($users as $user) {
+            $grower_id = $user['grower_id'];
+            $first_name = $user['first_name'];
+            $surname = $user['surname'];
+            $business_name = $user['business_name'];
+            $email = $user['email'];
+            $mobile = $user['mobile'];
+            $user_type = $user['user_type'];
+            $user_status = $user['user_status'];
+            $u = new User(
+                $grower_id,
+                $first_name,
+                $surname,
+                $business_name,
+                $email,
+                $mobile,
+                $user_type,
+                $user_status
+            );
+            array_push($users_output, $u);
+        }
+
+        return $users_output;
+    }
 
     public static function get_user_data_by_access($report_id)
     {

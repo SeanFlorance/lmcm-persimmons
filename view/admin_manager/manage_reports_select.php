@@ -15,6 +15,12 @@
         // clear the message buffer
         unset($_SESSION['message_type']);
         unset($_SESSION['change_access_message']);
+    }
+    if (!empty($_SESSION['message_type']) && $_SESSION['message_type'] == 'uploaded_report') {
+        echo "<h3>" . $_SESSION['uploaded_report_msg'] . "</h3>";
+        // clear the message buffer
+        unset($_SESSION['message_type']);
+        unset($_SESSION['uploaded_report_msg']);
     } ?>
     <section>
         <form class="searchForm" action="admin_management_controller.php" method="post">
@@ -69,7 +75,7 @@
                     </table>
                 <?php endif; ?>
                 <div class="modUser">
-                    <button type="button" onclick="window.location.href='admin_management_controller.php?action=upload_report';">
+                    <button type="button" onclick="window.location.href='admin_management_controller.php?action=upload_report_select';">
                         Upload New Report
                     </button>
                     <button type="button" onclick="window.location.href='admin_management_controller.php';">
