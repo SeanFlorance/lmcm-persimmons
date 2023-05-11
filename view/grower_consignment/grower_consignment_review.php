@@ -10,62 +10,41 @@
         <div id="consignment_start" class="consignment_box">
             <div class="consignment_details">
                 <label class="label_name" for="consignment_date">Consignment Date</label>
-                <input class="input_box" type="date" name="consignment_date" required><br>
+                <label><?php echo htmlspecialchars($consignment[4]) ?></label><br>
             </div>
             <div class="consignment_details">
                 <label class="label_name" for="market_location">Market Location</label>
                 <select class="drop_down" name="market_location" required>
-                    <option value="Not_Selected" disabled selected hidden></option>
-                    <option value="BRISBANE">Brisbane</option>
-                    <option value="SYDNEY">Sydney</option>
-                    <option value="MELBOURNE">Melbourne</option>
-                    <option value="ADELAIDE">Adelaide</option>
-                    <option value="PERTH">Perth</option>
+                    <option value="display"><?php echo htmlspecialchars($consignment[5]) ?></option>
                 </select>
             </div>
         </div>
         <div class="consignment_box">
             <h2>Entries</h2>
             <div id="review_main">
-            <table border="0" id="review_table">
-                <thead>
-                <th>Fruit Variety</th>
-                <th>Fruit Size</th>
-                <th>Package Type</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                </thead>
-                <tbody>
-                <tr>
-                    <td><input type="text"  /></td>
-                    <td><input type="text"  /></td>
-                    <td><input type="text"  /></td>
-                    <td><input type="text"  /></td>
-                    <td><input type="text"  /></td>
-                </tr>
-                <tr>
-                    <td><input type="text"  /></td>
-                    <td><input type="text"  /></td>
-                    <td><input type="text"  /></td>
-                    <td><input type="text"  /></td>
-                    <td><input type="text"  /></td>
-                </tr>
-                <tr>
-                    <td><input type="text"  /></td>
-                    <td><input type="text"  /></td>
-                    <td><input type="text"  /></td>
-                    <td><input type="text"  /></td>
-                    <td><input type="text"  /></td>
-                </tr>
-                <tr>
-                    <td><input type="text"  /></td>
-                    <td><input type="text"  /></td>
-                    <td><input type="text"  /></td>
-                    <td><input type="text"  /></td>
-                    <td><input type="text"  /></td>
-                </tr>
-                </tbody>
-            </table>
+            <?php if ($entries) : ?>
+                        <table class='result_table'>
+                            <tbody>
+                                <tr>
+                                    <th>Entry ID</th>
+                                    <th>Fruit Variety</th>
+                                    <th>Fruit Size</th>
+                                    <th>Package Type</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                </tr>
+                                <?php foreach ($entries as $entry) : ?>
+                                        <td><?php echo htmlspecialchars($entry[0]); ?></td>
+                                        <td><?php echo htmlspecialchars($entry[1]); ?></td>
+                                        <td><?php echo htmlspecialchars($entry[2]); ?></td>
+                                        <td><?php echo htmlspecialchars($entry[3]); ?></td>
+                                        <td><?php echo htmlspecialchars($entry[4]); ?></td>
+                                        <td><?php echo htmlspecialchars($entry[5]); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
             </div>
         </div>
         <div id="logout" class="button_box">
@@ -82,4 +61,3 @@
 </main>
 <script type="text/javascript" src="../js/grower_consignment.js"></script>
 <?php include '../view/common/footer.php' ?>
-
