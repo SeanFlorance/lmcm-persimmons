@@ -193,7 +193,7 @@ class ReportModel
         $statement->closeCursor();
     }
 
-    public static function add_report($report_number, $report_filename, $report_file_type, $report_data, $upload_date, $report_size)
+    public static function add_report($report_number, $report_filename, $report_file_type, $upload_date, $report_size)
     {
         $conn = Database::connection();
         $query = 'INSERT INTO reports_data
@@ -215,7 +215,7 @@ class ReportModel
         $statement->bindValue(':report_filename', $report_filename);
         $statement->bindValue(':report_file_type', $report_file_type);
         // Open temp file
-        $fp = fopen($report_data, 'rb');
+        $fp = fopen($_FILES['pdf_file']['temp_name'], 'rb');
         $dbStatement->bindParam(':report_data', $fp, PDO::PARAM_LOB, 0, PDO::SQLSRV_ENCODING_BINARY);
         $statement->bindValue(':upload_date', $upload_date);
         $statement->bindValue(':report_size', $report_size);
