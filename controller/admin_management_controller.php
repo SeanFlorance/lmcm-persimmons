@@ -449,7 +449,7 @@ switch ($action) {
         }
 
         // update access list in system
-        echo "got here!";
+        
         // get list of users to change access for and their new access state
         $grower_id_list = filter_input(INPUT_POST, 'grower_id_list', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
         $grower_ids = filter_input(INPUT_POST, 'grower_ids', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
