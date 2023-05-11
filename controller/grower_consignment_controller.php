@@ -137,7 +137,7 @@ switch ($action) {
         }
 
         $_SESSION['consignment_id'] = $consignment_id;
-        header('Location: ?action=consignment_review');
+        header('Location: ?action=consignment_submitted');
         break;
 
     case 'consignment_review':
