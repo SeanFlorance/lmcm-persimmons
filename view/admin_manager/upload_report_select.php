@@ -32,7 +32,7 @@
                 <label for="pdf_file">Click Edit Access & Select a File:</label>
                 <div class="input_container">
                     <input type="hidden" name="MAX_FILE_SIZE" value="300000" />
-                    <input type="file" name="pdf_file" disabled>
+                    <input type="file" name="pdf_file" disabled required>
                     <label for="report_id">Report ID</label>
                     <input type="number" name="report_id" min="1000" max="8999" placeholder="1234" required disabled><br>
                 </div>
