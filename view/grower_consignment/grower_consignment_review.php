@@ -10,19 +10,20 @@
         <div id="consignment_start" class="consignment_box">
             <div class="consignment_details">
                 <label class="label_name" for="consignment_date">Consignment Date</label>
-                <label><?php echo htmlspecialchars($consignment[4]) ?></label><br>
+                <label><?php echo htmlspecialchars($consignment[2]) ?></label><br>
             </div>
             <div class="consignment_details">
                 <label class="label_name" for="market_location">Market Location</label>
                 <select class="drop_down" name="market_location" required>
-                    <option value="display"><?php echo htmlspecialchars($consignment[5]) ?></option>
+                    <option value="display"><?php echo htmlspecialchars($consignment[3]) ?></option>
                 </select>
             </div>
         </div>
         <div class="consignment_box">
             <h2>Entries</h2>
             <div id="review_main">
-            <?php if ($entries) : ?>
+                <div class="input_container">
+                    <?php if ($entries) : ?>
                         <table class='result_table'>
                             <tbody>
                                 <tr>
@@ -45,6 +46,7 @@
                             </tbody>
                         </table>
                     <?php endif; ?>
+                </div>
             </div>
         </div>
         <div id="logout" class="button_box">
