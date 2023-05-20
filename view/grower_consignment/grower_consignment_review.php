@@ -35,6 +35,7 @@
                                     <th>Price</th>
                                 </tr>
                                 <?php foreach ($entries as $entry) : ?>
+                                <tr>
                                         <td><?php echo htmlspecialchars($entry[0]); ?></td>
                                         <td><?php echo htmlspecialchars($entry[1]); ?></td>
                                         <td><?php echo htmlspecialchars($entry[2]); ?></td>
