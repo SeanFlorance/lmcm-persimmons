@@ -121,14 +121,14 @@
             <header id="head">
                 <h2>Consignment Review</h2>
             </header>
-            <form id="consignment_review_form" name="consignment_review_form" action="grower_consignment_controller.php" method="post">
+            <form id="consignment_review_form" name="consignment_review_form" action="submit_consignment" method="post">
                 <div class="form_box">
                     <div class="consignment_review_form"></div>
                     <div id="logout" class="button_box">
                         <button type="button" onclick="editConsignment();">
                             Edit Consignment
                         </button> <br>
-                        <button type="button" onclick="window.location.href='grower_consignment_controller.php?action=submit_consignment';">
+                        <button id="submit_consignment" type="button">
                             Submit
                         </button>
                     </div>
