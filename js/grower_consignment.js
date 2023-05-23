@@ -196,16 +196,28 @@ function showReview() {
             });
 
     })
+    
+    // Add market location selection
+    var selectedMarketLocation = $("#consignment_form").find("[name=market_location" + " option:selected").val();
+    $(".consignment_review_form").find("#consignment_start").children(".consignment_details").children(".drop_down").find("option[value = '" + selectedMarketLocation + "']").attr("selected", "selected");
 
+    
     // Disable selecting
     $(".consignment_review_form").find("#consignment_main").children().each(function () {
+        $(this)
+            .children("input" | "select")
+            .each(function () {
+                $(this).attr("disabled", "true");
+            });
+    })
+    
+    $(".consignment_review_form").find("#consignment_start").children().each(function () {
         $(this)
             .children(".input_container")
             .children("input" | "select")
             .each(function () {
                 $(this).attr("disabled", "true");
             });
-
     })
 
     // Show review
