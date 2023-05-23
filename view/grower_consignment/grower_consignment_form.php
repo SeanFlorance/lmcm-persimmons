@@ -8,7 +8,7 @@
             <form id="consignment_form" name="consignment_form" action="grower_consignment_controller.php" method="post">
                 <div class="form_box">
                     <div class="form_data">
-                        <input type="hidden" name="action" value="consignment_review">
+                        <input type="hidden" name="action" value="submit_consignment">
                         <input id="entry_number" type="hidden" name="entry_number" value="1">
                         <div id="consignment_start" class="consignment_box">
                             <div class="consignment_details">
