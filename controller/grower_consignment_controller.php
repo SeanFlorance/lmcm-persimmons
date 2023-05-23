@@ -1,9 +1,13 @@
 <?php
 require_once('../library/config.php');
 require_once('../model/database.php');
-require_once('../model/consignment_db.php');
 require_once('../model/user_db.php');
+require_once('../model/report_db.php');
+require_once('../model/report_access_db.php');
 require_once('../library/session.php');
+require_once('../library/user.php');
+require_once('../library/report.php');
+
 
 // create session
 $user_session = new UserSession();
@@ -140,52 +144,6 @@ switch ($action) {
         header('Location: ?action=consignment_submitted');
         break;
 
-    case 'consignment_review':
-
-        // Gather consignment data from consignment form
-        $grower_number = $user->getUserID();
-        $entry_number = filter_input(INPUT_POST, 'entry_number');
-        $consignment_date = filter_input(INPUT_POST, 'consignment_date');
-        $market_location = filter_input(INPUT_POST, 'market_location');
-        $radio_choice = filter_input(INPUT_POST, 'comment_choice');
-        $grower_comment = filter_input(INPUT_POST, 'comment_text');
-
-        $consignment = array();
-        array_push($consignment, $grower_number);
-        array_push($consignment, $entry_number);
-        array_push($consignment, $consignment_date);
-        array_push($consignment, $market_location);
-        array_push($consignment, $radio_choice);
-        array_push($consignment, $grower_comment);
-
-
-        // if no comment was chosen grower comment set to null
-        if ($radio_choice == "no") {
-            $grower_comment = NULL;
-        }
-
-
-        $entries = array();
-
-        // Gather entry data from consignment form
-        for ($i = 1; $i <= $entry_number; $i++) {
-            $entry = array();
-            $fruit_variety = filter_input(INPUT_POST, 'fruit_variety' . $i);
-            $fruit_size = filter_input(INPUT_POST, 'fruit_size' . $i);
-            $package_type = filter_input(INPUT_POST, 'package_type' . $i);
-            $quantity = filter_input(INPUT_POST, 'quantity' . $i);
-            $price = filter_input(INPUT_POST, 'price' . $i);
-            array_push($entry, $fruit_variety);
-            array_push($entry, $fruit_size);
-            array_push($entry, $package_type);
-            array_push($entry, $quantity);
-            array_push($entry, $price);
-            array_push($entries, $entry);
-        }
-
-        include('../view/grower_consignment/grower_consignment_review.php');
-        break;
-
     case 'consignment_submitted':
 
         // redirect for action 'submit_consignment' so that user refresh does not resubmit form
@@ -196,6 +154,27 @@ switch ($action) {
 
         // generic redirect message for action so that user refresh does not resubmit forms/changes
         include('../view/grower_consignment/grower_submission_message.php');
+        break;
+
+    case 'grower_view_reports':
+
+        // Get grower id and reports viewable by them
+        $grower_number = $user->getUserID();
+        $reports = ReportModel::get_reports_by_access($grower_number);
+
+        // redirect to grower view reports
+        include('../view/grower_consignment/grower_view_reports.php');
+        break;
+
+    case 'view_report':
+        $report_id = filter_input(INPUT_POST, 'report_id');
+        $pdf = ReportModel::get_report_data($report_id);
+        header('Content-type: application/pdf');
+        header("Cache-Control: no-cache");
+        header("Pragma: no-cache");
+        header("Content-length: " . strlen($pdf[0]));
+        die($pdf[0]);
+
         break;
 
     case 'no_session':

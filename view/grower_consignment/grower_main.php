@@ -26,6 +26,15 @@
                 </button>
             </div>
             
+            <div class="admin_icon">
+                <a href="?action=grower_view_reports">
+                <img src="../image/consignment.png"></a>
+                <br>
+                <button onclick="window.location.href='?action=grower_view_reports';">
+                Reports
+                </button>
+            </div>
+
         </div>
 
         <div id="admin_logout">

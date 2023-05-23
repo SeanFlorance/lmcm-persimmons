@@ -108,7 +108,8 @@ class ReportModel
         $conn = Database::connection();
         $query = 'SELECT reports_data.report_id, report_filename, report_file_type, upload_date, report_size
                   FROM reports_data, reports_access
-                  WHERE reports_access.grower_id = :grower_id';
+                  WHERE reports_access.grower_id = :grower_id
+                        AND reports_data.report_id = reports_access.report_id';
 
         $statement = $conn->prepare($query);
         $statement->bindValue(':grower_id', $grower_id);
