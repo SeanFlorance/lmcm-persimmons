@@ -128,7 +128,7 @@
                         <button type="button" onclick="editConsignment();">
                             Edit Consignment
                         </button> <br>
-                        <button id="submit_consignment" type="button">
+                        <button id="submit_consignment" type="submit">
                             Submit
                         </button>
                     </div>
