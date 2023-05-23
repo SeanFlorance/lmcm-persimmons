@@ -198,7 +198,7 @@ function showReview() {
     })
     
     // Add market location selection
-    var selectedMarketLocation = $("#consignment_form").find("[name=market_location" + " option:selected").val();
+    var selectedMarketLocation = $("#consignment_form").find("[name=market_location]" + " option:selected").val();
     $(".consignment_review_form").find("#consignment_start").children(".consignment_details").children(".drop_down").find("option[value = '" + selectedMarketLocation + "']").attr("selected", "selected");
 
     
