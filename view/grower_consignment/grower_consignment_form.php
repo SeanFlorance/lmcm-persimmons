@@ -128,18 +128,15 @@
                     <div id="logout" class="button_box">
                         <button type="button" onclick="editConsignment();">
                             Edit Consignment
-                        </button> <br>
-                        <label for="consignment_form_submit" role="button" class="btn btn-primary" tabindex="0">
-                            Submit
-                        </label>
-                    </div>
-                    <div id="logout" class="button_box">
-                        <label for="consignment_form_submit" role="button" class="btn btn-primary" tabindex="0">
-                            Submit
-                        </label>
+                        </button>
                     </div>
                 </div>
             </form>
+            <div id="logout" class="button_box">
+                <label for="consignment_form_submit" role="button" class="btn btn-primary" tabindex="0">
+                    Submit
+                </label>
+            </div>
         </section>
     </div>
 </main>
