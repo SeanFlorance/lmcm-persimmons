@@ -10,6 +10,7 @@
                     <div class="form_data">
                         <input type="hidden" name="action" value="submit_consignment">
                         <input id="entry_number" type="hidden" name="entry_number" value="1">
+                        <input type="submit" id="consignment_form_submit" style="display: none;">
                         <div id="consignment_start" class="consignment_box">
                             <div class="consignment_details">
                                 <label class="label_name" for="consignment_date">Consignment Date</label>
@@ -128,14 +129,12 @@
                         <button type="button" onclick="editConsignment();">
                             Edit Consignment
                         </button> <br>
+                        <label for="consignment_form_submit" role="button" class="btn btn-primary" tabindex="0">
+                            Submit
+                        </label>
                     </div>
                 </div>
             </form>
-            <div id="logout" class="button_box">
-                <div class="form_box">
-                    <button id="submit_consignment" type="submit" form="consignment_form">Submit</button>
-                </div>
-            </div>
         </section>
     </div>
 </main>
