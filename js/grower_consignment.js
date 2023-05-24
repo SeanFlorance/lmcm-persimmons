@@ -205,6 +205,7 @@ function showReview() {
     // Disable selecting
     $(".consignment_review_form").find("#consignment_main").children().each(function () {
         $(this)
+            .children(".input_container")
             .children("input" | "select")
             .each(function () {
                 $(this).attr("disabled", "true");
@@ -213,7 +214,6 @@ function showReview() {
     
     $(".consignment_review_form").find("#consignment_start").children().each(function () {
         $(this)
-            .children(".input_container")
             .children("input" | "select")
             .each(function () {
                 $(this).attr("disabled", "true");
