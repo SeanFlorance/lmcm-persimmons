@@ -131,8 +131,10 @@
                     </div>
                 </div>
             </form>
-            <div class="form_box">
-                <button id="submit_consignment" type="submit" form="consignment_form">Submit</button>
+            <div id="logout" class="button_box">
+                <div class="form_box">
+                    <button id="submit_consignment" type="submit" form="consignment_form">Submit</button>
+                </div>
             </div>
         </section>
     </div>
