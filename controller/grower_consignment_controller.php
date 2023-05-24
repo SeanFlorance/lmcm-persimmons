@@ -7,6 +7,7 @@ require_once('../model/report_access_db.php');
 require_once('../library/session.php');
 require_once('../library/user.php');
 require_once('../library/report.php');
+require_once('../library/consignment_db.php');
 
 
 // create session
