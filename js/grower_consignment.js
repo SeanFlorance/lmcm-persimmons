@@ -157,7 +157,7 @@ function showReview() {
     // Hide form
     $("#consignment_form").toggle();
 
-    // Copy data to review form
+    // Copy data to review form to show
     $('.form_data').clone().appendTo(".consignment_review_form");
 
     // Remove unnecessary buttons and text
@@ -221,6 +221,9 @@ function showReview() {
             });
     })
 
+    // Copy data to the review form but hide it to send to server
+    $('.form_data').clone().appendTo(".consignment_review_form").toggle();
+    
     // Show review
     $("#consignment_review").toggle();
 }
