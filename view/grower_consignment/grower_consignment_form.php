@@ -117,7 +117,7 @@
             </form>
         </section>
     </div>
-    <div id="consignment_review" hidden>
+     <div id="consignment_review" hidden>
         <section>
             <header id="head">
                 <h2>Consignment Review</h2>
@@ -129,6 +129,11 @@
                         <button type="button" onclick="editConsignment();">
                             Edit Consignment
                         </button> <br>
+                        <label for="consignment_form_submit" role="button" class="btn btn-primary" tabindex="0">
+                            Submit
+                        </label>
+                    </div>
+                    <div id="logout" class="button_box">
                         <label for="consignment_form_submit" role="button" class="btn btn-primary" tabindex="0">
                             Submit
                         </label>
