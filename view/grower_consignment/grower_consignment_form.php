@@ -5,7 +5,7 @@
             <header id="head">
                 <h2>Weekly Market Report</h2>
             </header>
-            <form id="consignment_form" name="consignment_form" action="grower_consignment_controller.php" method="post">
+            <form id="consignment_form" name="consignment_form" action="submit_consignment" method="post">
                 <div class="form_box">
                     <div class="form_data">
                         <input type="hidden" name="action" value="submit_consignment">
