@@ -146,6 +146,8 @@ switch ($action) {
         }
         catch (Exception $e) {
             echo $e;
+            include('../view/admin_manager/modify_user_form.php');
+            die();
         }
         
         $_SESSION['consignment_id'] = $consignment_id;
