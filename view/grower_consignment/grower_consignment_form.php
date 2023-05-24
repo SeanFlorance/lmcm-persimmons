@@ -97,7 +97,7 @@
                             <label class="radio_label" for="no">No</label>
                             <div class="comment_text" hidden>
                                 <label for="comment_text"></label>
-                                <textarea form="consignment_form" name="comment_text" id="comment_area" rows="8" cols="80" placeholder="add comments here..." required></textarea>
+                                <textarea name="comment_text" id="comment_area" rows="8" cols="80" placeholder="add comments here..." required></textarea>
                             </div>
                         </div>
                     </div>
