@@ -128,12 +128,12 @@
                         <button type="button" onclick="editConsignment();">
                             Edit Consignment
                         </button> <br>
-                        <button id="submit_consignment" type="submit">
-                            Submit
-                        </button>
                     </div>
                 </div>
             </form>
+            <div class="form_box">
+                <button id="submit_consignment" type="submit" form="consignment_form">Submit</button>
+            </div>
         </section>
     </div>
 </main>
