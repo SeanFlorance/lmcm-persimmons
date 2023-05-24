@@ -133,7 +133,7 @@
                 </div>
             </form>
             <div id="logout" class="button_box">
-                <label for="consignment_form_submit" role="button" class="btn btn-primary" tabindex="0">
+                <label for="consignment_form_submit" role="button" class="button_box" tabindex="0">
                     Submit
                 </label>
             </div>
