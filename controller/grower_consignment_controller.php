@@ -146,7 +146,7 @@ switch ($action) {
         }
         catch (Exception $e) {
             echo $e;
-            include('../view/admin_manager/modify_user_form.php');
+            include('../errors/database_error.php');
             die();
         }
         
