@@ -202,7 +202,7 @@ function showReview() {
     $(".consignment_review_form").find("#consignment_start").children(".consignment_details").children(".drop_down").find("option[value = '" + selectedMarketLocation + "']").attr("selected", "selected");
 
     
-    // Disable selecting
+    // Disable inputs
     $(".consignment_review_form").find("#consignment_main").children().each(function () {
         $(this)
             .children(".input_container")
@@ -220,7 +220,9 @@ function showReview() {
                 $(this).attr("disabled", "true");
             });
     })
-
+    
+    $(".consignment_review_form").find(".comment_box").children(".comment_text").children("#comment_area").attr("disabled", "true");
+    
     // Copy data to the review form but hide it to send to server
     $('.form_data').clone().appendTo(".consignment_review_form").toggle();
     
