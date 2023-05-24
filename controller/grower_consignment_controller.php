@@ -105,6 +105,8 @@ switch ($action) {
 
     case 'submit_consignment':
 
+        try {
+        
         // Gather consignment data from consignment form
         $grower_number = $user->getUserID();
         $entry_number = filter_input(INPUT_POST, 'entry_number');
@@ -112,7 +114,9 @@ switch ($action) {
         $market_location = filter_input(INPUT_POST, 'market_location');
         $radio_choice = filter_input(INPUT_POST, 'comment_choice');
         $grower_comment = filter_input(INPUT_POST, 'comment_text');
-
+    
+        
+        
         // if no comment was chosen grower comment set to null
         if ($radio_choice == "no") {
             $grower_comment = NULL;
@@ -139,7 +143,11 @@ switch ($action) {
                 $price
             );
         }
-
+        }
+        catch (Exception $e) {
+            echo $e;
+        }
+        
         $_SESSION['consignment_id'] = $consignment_id;
         header('Location: ?action=consignment_submitted');
         break;
