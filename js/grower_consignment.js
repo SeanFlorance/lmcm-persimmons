@@ -206,9 +206,10 @@ function showReview() {
     $(".consignment_review_form").find("#consignment_main").children().each(function () {
         $(this)
             .children(".input_container")
-            .children("input" | "select")
             .each(function () {
-                $(this).attr("disabled", "true");
+                $(this).children("input" | "select").each(function (){
+                    $(this).attr("disabled", "true");
+                });
             });
     })
     
