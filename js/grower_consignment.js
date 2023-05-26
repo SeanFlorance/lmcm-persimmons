@@ -151,11 +151,57 @@ jQuery.fn.extend({
 
 
 /* Show Review */
-// switch from editing consignment to reviewing
+// switch from editing consignment to reviewing but only if all required fields are valid
 
 function showReview() {
+
+    // Check required field validity
+    // assume true, any falses lead to false
+    if (typeof showReview.validity == 'undefined') {
+        showReview.validity = true;
+    }
+
+    // Check consignment date is a valid date
+    showReview.validity &&= !(Number.isNaN(Date.parse($("#consignment_form_editing").find("[name=consignment_date]").val())));
+
+    // Check market location has been selected
+    showReview.validity &&= !($("#consignment_form_editing").find("[name=market_location]").children("option:selected").val() == "Not_Selected");
+
+    // Check if any value in any entry is empty or not selected
+    $("#consignment_form_editing").find("#consignment_main").children().each(function () {
+        $(this)
+            .children(".input_container")
+            .each(function () {
+                // if it has a selection drop down
+                if ($(this).has("select").length) { showReview.validity &&= !($(this).children("select").children("option:selected").val() == "None"); }
+                // if it has a number input
+                if ($(this).has("input").length) { showReview.validity &&= !($(this).children("input").val().length == 0); }
+            });
+    });
+
+    // Check if comment radio choice has an option selected
+    showReview.validity &&= !($("#consignment_form_editing").find("input[name='comment_choice']:checked").length == 0);
+
+    // Check if comment has text if the box is "yes"
+    if ($("#consignment_form_editing").find("input[name='comment_choice']:checked").val() == "yes") {
+        showReview.validity &&= !($("#consignment_form_editing").find("textarea[name='comment_text']").val() == "");
+    }
+
+    // If anything isn't valid don't toggle and instead show showReview.validity message
+    if (!showReview.validity) {
+        $(".invalid_input").show();
+        // and reset the showReview.validity
+        showReview.validity = true;
+        return false;
+    }
+
+    // If we get here everything is valid we should hide the message
+    $(".invalid_input").hide();
+    // and reset the showReview.validity
+    showReview.validity = true;
+
     // Hide form
-    $("#consignment_form").toggle();
+    $("#consignment_form_editing").toggle();
 
     // Copy data to review form to show
     $('.form_data').clone().appendTo(".consignment_review_form");
@@ -166,29 +212,33 @@ function showReview() {
     $(".consignment_review_form").find(".comment_choice_radio").remove();
     $(".consignment_review_form").find(".radio_label").remove();
 
-    //Change text where appropriate
-    $(".consignment_review_form").find(".comment_box").children(".label_name").text("Comment:");
+    // Check if comment has text if the box is "yes"
+    if ($("#consignment_form_editing").find("input[name='comment_choice']:checked").val() == "yes") {
+        //Change text where appropriate
+        $(".consignment_review_form").find(".comment_box").children(".label_name").text("Comment:");
+    }
 
-    // Add selected values to review form
+    // Add selected values to review form and tidy entry header spacing
     $(".consignment_review_form").find("#consignment_main").children().each(function () {
         var value_index = 1;
+        $(this).children(".header").after("<br />");
         $(this)
             .children(".input_container")
             .each(function () {
                 switch (value_index) {
                     case 1:
                         var name = $(this).children(".drop_down").attr('name');
-                        var selectedValue = $("#consignment_form").find("[name=" + name + "]" + " option:selected").val();
+                        var selectedValue = $("#consignment_form_editing").find("[name=" + name + "]" + " option:selected").val();
                         $(this).children(".drop_down").find("option[value = '" + selectedValue + "']").attr("selected", "selected");
                         break;
                     case 2:
                         var name = $(this).children(".drop_down").attr('name');
-                        var selectedValue = $("#consignment_form").find("[name=" + name + "]" + " option:selected").val();
+                        var selectedValue = $("#consignment_form_editing").find("[name=" + name + "]" + " option:selected").val();
                         $(this).children(".drop_down").find("option[value = '" + selectedValue + "']").attr("selected", "selected");
                         break;
                     case 3:
                         var name = $(this).children(".drop_down").attr('name');
-                        var selectedValue = $("#consignment_form").find("[name=" + name + "]" + " option:selected").val();
+                        var selectedValue = $("#consignment_form_editing").find("[name=" + name + "]" + " option:selected").val();
                         $(this).children(".drop_down").find("option[value = '" + selectedValue + "']").attr("selected", "selected");
                         break;
                 }
@@ -196,23 +246,23 @@ function showReview() {
             });
 
     })
-    
+
     // Add market location selection
-    var selectedMarketLocation = $("#consignment_form").find("[name=market_location]" + " option:selected").val();
+    var selectedMarketLocation = $("#consignment_form_editing").find("[name=market_location]" + " option:selected").val();
     $(".consignment_review_form").find("#consignment_start").children(".consignment_details").children(".drop_down").find("option[value = '" + selectedMarketLocation + "']").attr("selected", "selected");
 
-    
+
     // Disable inputs
     $(".consignment_review_form").find("#consignment_main").children().each(function () {
         $(this)
             .children(".input_container")
             .each(function () {
-                $(this).children("input" | "select").each(function (){
+                $(this).children("input" | "select").each(function () {
                     $(this).attr("disabled", "true");
                 });
             });
     })
-    
+
     $(".consignment_review_form").find("#consignment_start").children().each(function () {
         $(this)
             .children("input" | "select")
@@ -220,9 +270,9 @@ function showReview() {
                 $(this).attr("disabled", "true");
             });
     })
-    
+
     $(".consignment_review_form").find(".comment_box").children(".comment_text").children("#comment_area").attr("disabled", "true");
-    
+
     // Show review
     $("#consignment_review").toggle();
 }
@@ -232,9 +282,11 @@ function showReview() {
 
 function editConsignment() {
     // Show form
-    $("#consignment_form").toggle();
+    $("#consignment_form_editing").toggle();
     // Remove copy
     $(".consignment_review_form").empty();
     // Hide review
     $("#consignment_review").toggle();
+    // Hide invalid input message
+    $(".invalid_input").hide();
 }

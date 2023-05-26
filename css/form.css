@@ -102,8 +102,13 @@ h2 {
     margin: 0;
 }
 
-h3 {
-    font-size: 0.9em;
+.invalid_input {
+    color: red;
+    font-size: 0.7em;
+    max-width: 400px;
+    margin:auto;
+    margin-bottom: 0.2em;
+    text-align: center;
 }
 
 /* Consignment Add/Remove Buttons */

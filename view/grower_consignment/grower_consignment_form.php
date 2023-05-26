@@ -1,10 +1,11 @@
 <?php include '../view/grower_consignment/header_consignment.php' ?>
 <main>
-    <div id="consignment_form">
+    <div id="consignment_form_editing">
         <section>
             <header id="head">
-                <h2>Weekly Market Report</h2>
+                <h2>Weekly Market Report - Consignment Data Entry</h2>
             </header>
+            <div class="invalid_input" hidden>Some required fields are empty or have invalid inputs.</div>
             <form id="consignment_form" name="consignment_form" action="grower_consignment_controller.php" method="post">
                 <div class="form_box">
                     <div class="form_data">
@@ -117,10 +118,10 @@
             </form>
         </section>
     </div>
-     <div id="consignment_review" hidden>
+    <div id="consignment_review" hidden>
         <section>
             <header id="head">
-                <h2>Consignment Review</h2>
+                <h2>Weekly Market Report - Consignment Review</h2>
             </header>
             <form id="consignment_review_form" name="consignment_review_form" action="grower_consignment_controller.php" method="post">
                 <div class="form_box">
@@ -129,14 +130,12 @@
                         <button type="button" onclick="editConsignment();">
                             Edit Consignment
                         </button>
+                        <button type="submit" form="consignment_form" onclick="!this.form && document.getElementById('consignment_form').submit()">
+                            Submit
+                        </button>
                     </div>
                 </div>
             </form>
-            <div id="logout" class="button_box">
-                <label for="consignment_form_submit" role="button" class="button_box" tabindex="0">
-                    Submit
-                </label>
-            </div>
         </section>
     </div>
 </main>
