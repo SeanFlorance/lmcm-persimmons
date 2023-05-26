@@ -1,7 +1,7 @@
 <?php include '../view/admin_manager/header_admin.php' ?>
 <header class="modUser">
     <h1>Report List</h2>
-        <h2>View Reports</h2>
+        <h2>Weekly Market Report – Report List</h2>
 </header>
 
 <main>
