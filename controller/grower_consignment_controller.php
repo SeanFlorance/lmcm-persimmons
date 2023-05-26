@@ -183,13 +183,15 @@ switch ($action) {
         // searches report_data and returns list of reports to be presented
 
         $search_input = filter_input(INPUT_POST, 'search_input');
+        
+        $grower_id = $user->getUserID();
 
         $reports = array();
         if ($search_input == "") {
             $reports = array();
         }
 
-        $reports = ReportModel::get_reports_by_filename_contains_and_have_access($search_input);
+        $reports = ReportModel::get_reports_by_filename_contains_and_has_access($search_input,$grower_id);
 
         include('../view/admin_manager/grower_view_reports.php');
         break;
