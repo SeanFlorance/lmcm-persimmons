@@ -193,7 +193,7 @@ switch ($action) {
 
         $reports = ReportModel::get_reports_by_filename_contains_and_has_access($search_input,$grower_id);
 
-        include('../view/admin_manager/grower_view_reports.php');
+        include('../view/grower_consignment/grower_view_reports.php');
         break;
         
     case 'view_report':
