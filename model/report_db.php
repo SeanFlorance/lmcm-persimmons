@@ -103,6 +103,45 @@ class ReportModel
         return $reports_output;
     }
 
+    public static function get_reports_by_filename_contains_and_has_access($report_filename, $grower_id)
+    {
+        $conn = Database::connection();
+        $query = 'SELECT reports_data.report_id, report_filename, report_file_type, upload_date, report_size
+                  FROM reports_data, reports_access
+                  WHERE reports_access.grower_id = :grower_id
+                        AND reports_data.report_id = reports_access.report_id
+                        AND report_filename LIKE :contains';
+
+        $contains = '%' . $report_filename . '%';
+
+        $statement = $conn->prepare($query);
+        $statement->bindValue(':grower_id', $grower_id);
+        $statement->bindValue(':contains', $contains);
+        $statement->execute();
+        $reports = $statement->fetchall();
+        $statement->closeCursor();
+
+        $reports_output = array();
+
+        foreach ($reports as $report) {
+            $report_id = $report['report_id'];
+            $report_filename = $report['report_filename'];
+            $report_file_type = $report['report_file_type'];
+            $upload_date = $report['upload_date'];
+            $report_size = $report['report_size'];
+            $r = new Report(
+                $report_id,
+                $report_filename,
+                $report_file_type,
+                $upload_date,
+                $report_size
+            );
+            array_push($reports_output, $r);
+        }
+
+        return $reports_output;
+    }
+    
     public static function get_reports_by_access($grower_id)
     {
         $conn = Database::connection();
